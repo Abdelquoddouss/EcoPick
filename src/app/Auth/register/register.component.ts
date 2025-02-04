@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {FormGroup, FormControl, Validators, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {AuthService} from "../services/auth.service";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-register',

@@ -21,6 +21,16 @@
       "password": "Pa$$w0rd!",
       "birthDate": "2006-03-02",
       "role": "particulier"
+    },
+    {
+      "id": "633f",
+      "fullName": "Autem ut sunt illum",
+      "address": "Repellendus Qui mod",
+      "phone": "1234567887",
+      "email": "kyroqaw@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "birthDate": "2014-02-27",
+      "role": "particulier"
     }
   ]
 }
