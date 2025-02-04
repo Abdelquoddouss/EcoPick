@@ -1,0 +1,67 @@
+<section class="bg-gradient-to-r from-green-100 to-green-300 dark:from-gray-800 dark:to-gray-900">
+  <div class="flex justify-center min-h-screen">
+    <div class="hidden lg:block lg:w-2/5 relative">
+      <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+      <img src="assets/img/two-smiling-women-holding-wooden-box-with-recycle-items.jpg"
+           alt="Recycling" class="object-cover w-full h-full">
+    </div>
+
+    <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
+      <div class="w-full bg-white p-10 shadow-lg rounded-lg dark:bg-gray-900">
+        <h1 class="text-2xl font-semibold text-gray-800 capitalize dark:text-white">
+          Get your free account now.
+        </h1>
+
+        <form [formGroup]="registerForm"  (ngSubmit)="onsubmit()"
+              class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+
+          <div>
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Full Name</label>
+            <input type="text" formControlName="fullName" placeholder="John" class="input">
+            <p *ngIf="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
+               class="text-red-500 text-xs">Name must be at least 3 characters.</p>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Address</label>
+            <input type="text" formControlName="address" placeholder="123 Street" class="input">
+            <p *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched"
+               class="text-red-500 text-xs">Address must be at least 5 characters.</p>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Phone Number</label>
+            <input type="text" formControlName="phone" placeholder="Enter 10-digit number" class="input">
+            <p *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched"
+               class="text-red-500 text-xs">Phone number must be exactly 10 digits.</p>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Email</label>
+            <input type="email" formControlName="email" placeholder="john@example.com" class="input">
+            <p *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+               class="text-red-500 text-xs">Enter a valid email.</p>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Password</label>
+            <input type="password" formControlName="password" placeholder="Enter your password" class="input">
+            <p *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+               class="text-red-500 text-xs">Minimum 6 characters required.</p>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Date de naissance</label>
+            <input type="date" formControlName="birthDate" class="input">
+            <p *ngIf="registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched"
+               class="text-red-500 text-xs">This field is required.</p>
+          </div>
+
+          <button type="submit" [disabled]="registerForm.invalid" class="btn">
+            Sign Up
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
