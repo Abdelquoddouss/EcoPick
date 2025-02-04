@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FormGroup, FormControl, Validators, ReactiveFormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,9 @@ import {CommonModule} from "@angular/common";
 })
 
 export class RegisterComponent {
+
+  authService: AuthService=inject(AuthService);
+
 
   registerForm = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -23,7 +27,15 @@ export class RegisterComponent {
 
   onsubmit() {
     if (this.registerForm.valid) {
-      console.log('Form Submitted', this.registerForm.value);
+      const newUser = {
+        ...this.registerForm.value,
+        role: 'particulier'
+      };
+      this.authService.register(newUser).subscribe(response => {
+        console.log('User Registered:', response);
+        alert('Inscription réussie !');
+      });
+
     } else {
       console.log('Invalid Form');
     }
