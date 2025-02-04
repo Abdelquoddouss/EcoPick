@@ -31,6 +31,16 @@
       "password": "Pa$$w0rd!",
       "birthDate": "2014-02-27",
       "role": "particulier"
+    },
+    {
+      "id": "5ce9",
+      "fullName": "Abdelquoddouss Fadli",
+      "address": "Mhamid 4 - 444",
+      "phone": "0600873260",
+      "email": "caqefutu@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "birthDate": "2020-01-08",
+      "role": "particulier"
     }
   ]
 }
