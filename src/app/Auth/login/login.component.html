@@ -1,0 +1,44 @@
+<section class="bg-gradient-to-r from-green-100 to-green-300 dark:from-gray-800 dark:to-gray-900">
+  <div class="flex justify-center min-h-screen">
+    <div class="hidden lg:block lg:w-2/5 relative">
+      <div class="absolute inset-0 bg-black bg-opacity-20"></div>
+      <img src="../../../assets/img/volunteers-collecting-trash-beach.jpg"
+           alt="Recycling" class="object-cover w-full h-full">
+    </div>
+
+    <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
+      <div class="w-full bg-white p-10 shadow-lg rounded-lg dark:bg-gray-900">
+        <h1 class="text-2xl font-semibold text-gray-800 capitalize dark:text-white">
+          Welcome Back! Login to your account.
+        </h1>
+        <div *ngIf="alertMessage" class="p-3 mb-4 text-white rounded-lg shadow-md"
+             [ngClass]="{'bg-green-500': alertType === 'success', 'bg-red-500': alertType === 'error'}">
+          {{ alertMessage }}
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4 bg-white p-6 rounded-lg shadow-lg">
+          <h2 class="text-xl font-semibold text-gray-800">Connexion</h2>
+
+          <div>
+            <label class="block text-sm text-gray-600">Email</label>
+            <input type="email" formControlName="email" placeholder="email@example.com" class="input">
+            <p *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+               class="text-red-500 text-xs">Email invalide.</p>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600">Mot de passe</label>
+            <input type="password" formControlName="password" placeholder="••••••" class="input">
+            <p *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+               class="text-red-500 text-xs">Mot de passe trop court.</p>
+          </div>
+
+          <button type="submit" [disabled]="loginForm.invalid" class="btn">
+            Se connecter
+          </button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</section>

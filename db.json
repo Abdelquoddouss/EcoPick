@@ -1,6 +1,46 @@
 {
   "users": [
-    { "id": 1, "fullName": "John Doe", "email": "john@example.com", "phone": "1234567890" },
-    { "id": 2, "fullName": "Jane Smith", "email": "jane@example.com", "phone": "0987654321" }
+    {
+      "id": "1",
+      "fullName": "John Doe",
+      "email": "john@example.com",
+      "phone": "1234567890"
+    },
+    {
+      "id": "2",
+      "fullName": "Jane Smith",
+      "email": "jane@example.com",
+      "phone": "0987654321"
+    },
+    {
+      "id": "c305",
+      "fullName": "Duis nostrud ipsam p",
+      "address": "Blanditiis repudiand",
+      "phone": "3456787887",
+      "email": "sesir@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "birthDate": "2006-03-02",
+      "role": "particulier"
+    },
+    {
+      "id": "633f",
+      "fullName": "Autem ut sunt illum",
+      "address": "Repellendus Qui mod",
+      "phone": "1234567887",
+      "email": "kyroqaw@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "birthDate": "2014-02-27",
+      "role": "particulier"
+    },
+    {
+      "id": "5ce9",
+      "fullName": "Abdelquoddouss Fadli",
+      "address": "Mhamid 4 - 444",
+      "phone": "0600873260",
+      "email": "caqefutu@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "birthDate": "2020-01-08",
+      "role": "particulier"
+    }
   ]
 }
