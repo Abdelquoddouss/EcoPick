@@ -3,6 +3,7 @@ import {CommonModule} from "@angular/common";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   });
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     if (this.loginForm.valid) {
@@ -33,7 +34,12 @@ export class LoginComponent {
         if (user) {
           if (user.password === password) {
             this.showAlert('Connexion réussie !', 'success');
-            console.log('Utilisateur connecté :', user);
+            localStorage.setItem('user', JSON.stringify(user));
+
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 1000);
+
           } else {
             this.showAlert('Mot de passe incorrect.', 'error');
           }
