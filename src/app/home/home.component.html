@@ -12,10 +12,11 @@
       </p>
       <div class="max-w-md mx-auto mt-5 sm:flex sm:justify-center md:mt-8">
         <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
-          <a href=""
-             class="block shadow-lg w-full px-8 py-3 text-base font-medium text-white bg-green-600 hover:bg-green-700 rounded-md md:py-4 md:text-lg md:px-10">
-            Pre-Book
-          </a>
+          <!-- Bouton dynamique -->
+          <button (click)="navigateToAction()"
+                  class="block shadow-lg w-full px-8 py-3 text-base font-medium text-white bg-green-600 hover:bg-green-700 rounded-md md:py-4 md:text-lg md:px-10">
+            {{ isAuthenticated ? 'Faire une collection' : 'Se connecter' }}
+          </button>
         </div>
       </div>
     </div>
@@ -23,7 +24,6 @@
 </div>
 
 <div class="flex flex-wrap items-center bg-gray-100 py-12">
-  <!-- Section Texte -->
   <div class="w-full sm:w-7/12 px-6 lg:px-12">
     <div class="max-w-2xl mx-auto">
       <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight text-gray-900">
@@ -34,12 +34,14 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae maiores neque eaque ea odit placeat,
         tenetur illum distinctio nulla voluptatum a corrupti beatae tempora aperiam quia id aliquam possimus aut.
       </p>
-      <button class="mt-6 bg-green-600 hover:bg-green-700 transition-all duration-300 text-white text-lg font-medium px-6 py-3 rounded-lg shadow-lg">
-        Learn More
+      <button (click)="navigateToAction()"
+              class="mt-6 bg-green-600 hover:bg-green-700 transition-all duration-300 text-white text-lg font-medium px-6 py-3 rounded-lg shadow-lg">
+        {{ isAuthenticated ? 'Faire une collection' : 'Rejoindre nous' }}
       </button>
     </div>
   </div>
-  <!-- Section Image -->
+
+<!-- Section Image -->
   <div class="w-full sm:w-5/12 mt-8 sm:mt-0 px-4">
     <img src="assets/img/happy-man-holding-cardboard-box-with-recycle-items-front-women-gesturing-thumbs-up.jpg"
          alt="Leafs"
