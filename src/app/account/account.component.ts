@@ -21,6 +21,11 @@ export class AccountComponent implements OnInit{
   };
 
   userId!: number;
+  alertMessage: string = '';
+  alertType: string = '';
+
+  isFullNameInvalid = false;
+  isEmailInvalid = false;
 
   constructor(private userService: UserService) {}
 
@@ -38,17 +43,27 @@ export class AccountComponent implements OnInit{
     }
   }
 
+  validateInputs() {
+    this.isFullNameInvalid = !this.user.fullName.trim();
+    this.isEmailInvalid = !this.user.email.trim() || !this.isValidEmail(this.user.email);
+
+    return !(this.isFullNameInvalid || this.isEmailInvalid);
+  }
+
+  isValidEmail(email: string) {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    return emailRegex.test(email);
+  }
+
   updateUser() {
-    if (!this.user.fullName || !this.user.email) {
-      alert("Veuillez remplir tous les champs obligatoires.");
+    if (!this.validateInputs()) {
+      alert("Veuillez remplir tous les champs obligatoires correctement.");
       return;
     }
 
     this.userService.updateUser(this.userId, this.user).subscribe(() => {
       alert('Informations mises à jour avec succès !');
-
-      // Mettre à jour les informations de l'utilisateur dans le localStorage
-      const updatedUser = { ...this.user, id: this.userId }; // Ajoutez l'ID si nécessaire
+      const updatedUser = { ...this.user, id: this.userId };
       localStorage.setItem('user', JSON.stringify(updatedUser));
     });
   }
@@ -56,7 +71,6 @@ export class AccountComponent implements OnInit{
   deleteUser() {
     if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) {
       this.userService.deleteUser(this.userId).subscribe(() => {
-        // Supprimer les informations de l'utilisateur dans le localStorage
         localStorage.removeItem('user');
 
         window.location.href = '/login'; // Redirection vers la page de connexion

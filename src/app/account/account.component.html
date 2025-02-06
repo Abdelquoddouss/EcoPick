@@ -1,7 +1,10 @@
-<!-- component -->
 <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
 <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
 
+<!-- Section des alertes -->
+<div *ngIf="alertMessage" class="p-4 mb-4 text-white" [ngClass]="alertType === 'success' ? 'bg-green-500' : 'bg-red-500'">
+  <p>{{ alertMessage }}</p>
+</div>
 
 <section class="py-1 bg-blueGray-50" *ngIf="user">
   <div class="w-full lg:w-8/12 px-4 mx-auto mt-6">
@@ -12,7 +15,7 @@
         </div>
       </div>
       <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-        <form>
+        <form (ngSubmit)="updateUser()">
           <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
             User Information
           </h6>
@@ -23,7 +26,8 @@
                   Full Name
                 </label>
                 <input type="text" [(ngModel)]="user.fullName" name="fullName"
-                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                       [class.border-red-500]="isFullNameInvalid">
               </div>
             </div>
             <div class="w-full lg:w-6/12 px-4">
@@ -32,7 +36,8 @@
                   Email address
                 </label>
                 <input type="email" [(ngModel)]="user.email" name="email"
-                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                       [class.border-red-500]="isEmailInvalid">
               </div>
             </div>
             <div class="w-full lg:w-6/12 px-4">
@@ -73,7 +78,7 @@
           </div>
 
           <div class="flex justify-end mt-6">
-            <button type="submit" (click)="updateUser() "
+            <button type="submit"
                     class="border-gray-950 bg-blue-800 px-6 py-3 rounded-lg shadow-md transition-all duration-300">
               Enregistrer les modifications
             </button>
