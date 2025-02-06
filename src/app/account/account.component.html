@@ -15,7 +15,7 @@
         </div>
       </div>
       <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-        <form (ngSubmit)="updateUser()">
+        <form (ngSubmit)="updateUser()" #userForm="ngForm">
           <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
             User Information
           </h6>
@@ -25,9 +25,9 @@
                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                   Full Name
                 </label>
-                <input type="text" [(ngModel)]="user.fullName" name="fullName"
-                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                       [class.border-red-500]="isFullNameInvalid">
+                <input type="text" [(ngModel)]="user.fullName" name="fullName" required
+                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                <div *ngIf="userForm.submitted && !user.fullName" class="text-red-500 text-xs">Full Name is required</div>
               </div>
             </div>
             <div class="w-full lg:w-6/12 px-4">
@@ -35,9 +35,9 @@
                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                   Email address
                 </label>
-                <input type="email" [(ngModel)]="user.email" name="email"
-                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                       [class.border-red-500]="isEmailInvalid">
+                <input type="email" [(ngModel)]="user.email" name="email" required email
+                       class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                <div *ngIf="userForm.submitted && !user.email" class="text-red-500 text-xs">Valid email is required</div>
               </div>
             </div>
             <div class="w-full lg:w-6/12 px-4">
@@ -45,8 +45,9 @@
                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                   Address
                 </label>
-                <input type="text" [(ngModel)]="user.address" name="address"
+                <input type="text" [(ngModel)]="user.address" name="address" required
                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                <div *ngIf="userForm.submitted && !user.address" class="text-red-500 text-xs">Address is required</div>
               </div>
             </div>
             <div class="w-full lg:w-6/12 px-4">
@@ -54,8 +55,9 @@
                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                   Phone
                 </label>
-                <input type="text" [(ngModel)]="user.phone" name="phone"
+                <input type="text" [(ngModel)]="user.phone" name="phone" required pattern="^[0-9]{10}$"
                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                <div *ngIf="userForm.submitted && !user.phone" class="text-red-500 text-xs">Valid phone number is required</div>
               </div>
             </div>
           </div>
@@ -71,8 +73,9 @@
                 <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                   Birth Date
                 </label>
-                <input type="date" [(ngModel)]="user.birthDate" name="birthDate"
+                <input type="date" [(ngModel)]="user.birthDate" name="birthDate" required
                        class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150">
+                <div *ngIf="userForm.submitted && !user.birthDate" class="text-red-500 text-xs">Birth Date is required</div>
               </div>
             </div>
           </div>
