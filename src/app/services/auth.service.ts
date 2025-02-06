@@ -19,4 +19,8 @@ export class AuthService {
     return this.http.get<any[]>(this.apiUrl+"users");
   }
 
+  logout() {
+    localStorage.removeItem("user"); // Supprime les infos de l'utilisateur
+  }
+
 }
