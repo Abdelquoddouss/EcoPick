@@ -6,6 +6,7 @@ import {AccountComponent} from "./account/account.component";
 import {FooterComponent} from "./footer/footer.component";
 import {LayoutComponent} from "./layout/layout.component";
 import {HomeComponent} from "./home/home.component";
+import {CollectionComponent} from "./collection/collection.component";
 
 export const routes: Routes = [
 
@@ -14,6 +15,7 @@ export const routes: Routes = [
 
   { path: 'home2', component: HomeComponent },
 
+
   {
     path: '',
     component: LayoutComponent,
@@ -21,6 +23,8 @@ export const routes: Routes = [
       { path: 'account', component: AccountComponent },
 
       { path: 'home', component: HomeComponent },
+      { path: 'addCollection', component: CollectionComponent },
+
 
 
     ]
