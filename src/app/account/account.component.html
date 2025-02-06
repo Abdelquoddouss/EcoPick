@@ -72,11 +72,17 @@
             </div>
           </div>
 
-          <div class="flex justify-end mt-4">
-            <button type="button" (click)="updateUser()"
-                    class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600">
+          <div class="flex justify-end mt-6">
+            <button type="submit" (click)="updateUser() "
+                    class="border-gray-950 bg-blue-800 px-6 py-3 rounded-lg shadow-md transition-all duration-300">
               Enregistrer les modifications
             </button>
+            <div class="flex justify-end mt-4">
+              <button type="button" (click)="deleteUser()"
+                      class="border-gray-950 bg-red-600 px-6 py-3 rounded-lg shadow-md hover:bg-red-700 transition-all duration-300">
+                Supprimer mon compte
+              </button>
+            </div>
           </div>
         </form>
       </div>

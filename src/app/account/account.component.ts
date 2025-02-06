@@ -53,4 +53,19 @@ export class AccountComponent implements OnInit{
     });
   }
 
+  deleteUser() {
+    if (confirm("Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.")) {
+      this.userService.deleteUser(this.userId).subscribe(() => {
+        // Supprimer les informations de l'utilisateur dans le localStorage
+        localStorage.removeItem('user');
+
+        window.location.href = '/login'; // Redirection vers la page de connexion
+        alert('Votre compte a été supprimé avec succès.');
+      }, (error) => {
+        console.error('Erreur lors de la suppression du compte:', error);
+        alert('Une erreur est survenue lors de la suppression de votre compte.');
+      });
+    }
+  }
+
 }
