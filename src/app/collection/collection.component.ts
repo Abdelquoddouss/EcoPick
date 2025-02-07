@@ -120,16 +120,29 @@ export class CollectionComponent implements OnInit {
       }
     }
 
-    if (!this.adresse) {
-      alert('Veuillez entrer une adresse de collecte.');
+    if (!this.adresse.trim()) {
+      alert("Veuillez renseigner une adresse.");
       return false;
     }
+
     if (!this.dateCollecte) {
-      alert('Veuillez sélectionner une date et un créneau horaire pour la collecte.');
+      alert("Veuillez sélectionner une date et une heure.");
+      return false;
+    }
+
+    if (!this.isValidTimeRange(this.dateCollecte)) {
+      alert("L'heure de collecte doit être comprise entre 09h00 et 18h00.");
       return false;
     }
 
     return true;
+  }
+
+
+  private isValidTimeRange(dateTime: string): boolean {
+    const selectedDate = new Date(dateTime);
+    const hours = selectedDate.getHours();
+    return hours >= 9 && hours < 18;
   }
 
 }
