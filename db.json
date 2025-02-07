@@ -32,5 +32,50 @@
       "birthDate": "2000-04-12",
       "role": "particulier"
     }
+  ],
+  "collectes": [
+    {
+      "id": "7ba7",
+      "types": [
+        {
+          "type": "plastique",
+          "poids": 1003
+        }
+      ],
+      "adresse": "Non ipsam velit recu",
+      "date": "2002-03-16T23:08",
+      "notes": "Amet voluptate debi",
+      "image": "image.png"
+    },
+    {
+      "id": "5a66",
+      "types": [
+        {
+          "type": "métal",
+          "poids": 1002
+        },
+        {
+          "type": "papier",
+          "poids": 1003
+        }
+      ],
+      "adresse": "Quo molestiae eligen",
+      "date": "2001-12-28T00:18",
+      "notes": "Doloremque nesciunt",
+      "image": "image.png"
+    },
+    {
+      "id": "149c",
+      "types": [
+        {
+          "type": "plastique",
+          "poids": 1002
+        }
+      ],
+      "adresse": "Non et consectetur ",
+      "date": "2017-04-10T02:31",
+      "notes": "Qui odit necessitati",
+      "image": null
+    }
   ]
 }
