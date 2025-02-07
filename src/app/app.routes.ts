@@ -13,7 +13,6 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
-  { path: 'home2', component: HomeComponent },
 
 
   {
@@ -23,6 +22,8 @@ export const routes: Routes = [
       { path: 'account', component: AccountComponent },
 
       { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+
       { path: 'addCollection', component: CollectionComponent },
 
 
