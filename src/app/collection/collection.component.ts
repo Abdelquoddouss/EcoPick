@@ -96,7 +96,7 @@ export class CollectionComponent implements OnInit {
       const demandesActives = collectes.filter((c: { statut: string; }) => c.statut === "en attente").length;
 
       if (demandesActives >= 3) {
-        alert("Vous ne pouvez pas avoir plus de 3 demandes simultanées en attente ou validées.");
+        alert("Vous ne pouvez pas avoir plus de 3 demandes simultanées en attente");
         return;
       }
 
@@ -129,16 +129,27 @@ export class CollectionComponent implements OnInit {
   }
 
   private validateForm(): boolean {
+    let totalPoids = 0;
+
     for (let i = 0; i < this.collecteTypes.length; i++) {
       const collecte = this.collecteTypes[i];
+
       if (!collecte.type) {
         alert(`Veuillez sélectionner un type pour le déchet numéro ${i + 1}.`);
         return false;
       }
+
       if (collecte.poids < 1000) {
         alert(`Le poids du déchet numéro ${i + 1} doit être d'au moins 1000g.`);
         return false;
       }
+
+      totalPoids += collecte.poids;
+    }
+
+    if (totalPoids > 10000) {
+      alert("Le total des collectes ne doit pas dépasser 10 kg (10000g).");
+      return false;
     }
 
     if (!this.adresse.trim()) {
