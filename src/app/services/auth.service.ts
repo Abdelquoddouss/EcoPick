@@ -23,4 +23,15 @@ export class AuthService {
     localStorage.removeItem("user"); // Supprime les infos de l'utilisateur
   }
 
+  // Vérifier si l'utilisateur est connecté
+  isLogged(): boolean {
+    return localStorage.getItem('user') !== null;
+  }
+
+  // Récupérer l'ID de l'utilisateur connecté
+  getUserId(): number | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user).id : null;
+  }
+
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
-import {CollecteService} from "../services/collecte.service"; // Import du service
+import {CollecteService} from "../services/collecte.service";
+import {AuthService} from "../services/auth.service"; // Import du service
 
 @Component({
   selector: 'app-collection',
@@ -20,9 +21,14 @@ export class CollectionComponent implements OnInit {
   maxDate: string = '';
   imageFile: File | null = null;
 
-  constructor(private collecteService: CollecteService) {}
+  isAuthenticated: boolean = false;
+  userId: number | null = null;
+
+  constructor(private collecteService: CollecteService, private authService: AuthService) {}
 
   ngOnInit() {
+    this.checkAuthStatus();
+
     if (this.collecteTypes.length === 0) {
       this.ajouterType();
     }
@@ -33,6 +39,15 @@ export class CollectionComponent implements OnInit {
 
     this.minDate = this.formatDate(today);
     this.maxDate = this.formatDate(thirtyDaysFromNow);
+  }
+
+  checkAuthStatus() {
+    this.isAuthenticated = this.authService.isLogged();
+    this.userId = this.authService.getUserId();
+
+    if (!this.isAuthenticated) {
+      alert("Vous devez être connecté pour enregistrer une collecte.");
+    }
   }
 
   ajouterType() {
@@ -64,8 +79,14 @@ export class CollectionComponent implements OnInit {
   }
 
   onSubmit() {
+    if (!this.isAuthenticated) {
+      alert("Vous devez être connecté pour faire une demande de collecte.");
+      return;
+    }
+
     if (this.validateForm()) {
       const formData = {
+        userId: this.userId,
         types: this.collecteTypes,
         adresse: this.adresse,
         date: this.dateCollecte,
@@ -73,19 +94,20 @@ export class CollectionComponent implements OnInit {
         image: this.imageFile ? this.imageFile.name : null
       };
 
-      console.log('FormData:', formData);  // Ajoutez cette ligne pour déboguer
-
-      this.collecteService.enregistrerCollecte(formData).subscribe(response => {
-        console.log('Collecte enregistrée avec succès:', response);
-      }, error => {
-        console.error('Erreur lors de l\'enregistrement:', error);
-      });
+      this.collecteService.enregistrerCollecte(formData).subscribe(
+        response => {
+          console.log('Collecte enregistrée avec succès:', response);
+          alert("Votre demande de collecte a été enregistrée avec succès !");
+        },
+        error => {
+          console.error("Erreur lors de l'enregistrement:", error);
+          alert("Une erreur est survenue lors de l'enregistrement.");
+        }
+      );
     }
   }
 
-
   private validateForm(): boolean {
-    // Valider chaque type de déchet
     for (let i = 0; i < this.collecteTypes.length; i++) {
       const collecte = this.collecteTypes[i];
       if (!collecte.type) {
@@ -98,7 +120,6 @@ export class CollectionComponent implements OnInit {
       }
     }
 
-    // Valider l'adresse et la date
     if (!this.adresse) {
       alert('Veuillez entrer une adresse de collecte.');
       return false;
@@ -110,4 +131,5 @@ export class CollectionComponent implements OnInit {
 
     return true;
   }
+
 }
