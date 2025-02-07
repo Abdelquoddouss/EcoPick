@@ -92,28 +92,40 @@ export class CollectionComponent implements OnInit {
       return;
     }
 
-    if (this.validateForm()) {
-      const formData = {
-        userId: this.userId,
-        types: this.collecteTypes,
-        adresse: this.adresse,
-        date: this.dateCollecte,
-        notes: this.notes,
-        image: this.imageBase64,
-        statut: "en attente"
-      };
+    this.collecteService.getUserCollectes(this.userId!).subscribe(collectes => {
+      const demandesActives = collectes.filter((c: { statut: string; }) => c.statut === "en attente").length;
 
-      this.collecteService.enregistrerCollecte(formData).subscribe(
-        response => {
-          console.log('Collecte enregistrée avec succès:', response);
-          alert("Votre demande de collecte a été enregistrée avec succès !");
-        },
-        error => {
-          console.error("Erreur lors de l'enregistrement:", error);
-          alert("Une erreur est survenue lors de l'enregistrement.");
-        }
-      );
-    }
+      if (demandesActives >= 3) {
+        alert("Vous ne pouvez pas avoir plus de 3 demandes simultanées en attente ou validées.");
+        return;
+      }
+
+      if (this.validateForm()) {
+        const formData = {
+          userId: this.userId,
+          types: this.collecteTypes,
+          adresse: this.adresse,
+          date: this.dateCollecte,
+          notes: this.notes,
+          image: this.imageBase64,
+          statut: "en attente"
+        };
+
+        this.collecteService.enregistrerCollecte(formData).subscribe(
+          response => {
+            console.log('Collecte enregistrée avec succès:', response);
+            alert("Votre demande de collecte a été enregistrée avec succès !");
+          },
+          error => {
+            console.error("Erreur lors de l'enregistrement:", error);
+            alert("Une erreur est survenue lors de l'enregistrement.");
+          }
+        );
+      }
+    }, error => {
+      console.error("Erreur lors de la récupération des collectes:", error);
+      alert("Impossible de vérifier vos collectes en attente.");
+    });
   }
 
   private validateForm(): boolean {
