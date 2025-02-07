@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
-import {CollecteService} from "../services/collecte.service";
-import {AuthService} from "../services/auth.service"; // Import du service
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { CollecteService } from "../services/collecte.service";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: 'app-collection',
@@ -20,6 +20,7 @@ export class CollectionComponent implements OnInit {
   minDate: string = '';
   maxDate: string = '';
   imageFile: File | null = null;
+  imageBase64: string | null = null; // Ajout du champ base64
 
   isAuthenticated: boolean = false;
   userId: number | null = null;
@@ -75,6 +76,13 @@ export class CollectionComponent implements OnInit {
     const file = event.target.files[0];
     if (file) {
       this.imageFile = file;
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        this.imageBase64 = reader.result as string;
+      };
+
+      reader.readAsDataURL(file);
     }
   }
 
@@ -91,7 +99,8 @@ export class CollectionComponent implements OnInit {
         adresse: this.adresse,
         date: this.dateCollecte,
         notes: this.notes,
-        image: this.imageFile ? this.imageFile.name : null
+        image: this.imageBase64,
+        statut: "en attente"
       };
 
       this.collecteService.enregistrerCollecte(formData).subscribe(
@@ -138,11 +147,9 @@ export class CollectionComponent implements OnInit {
     return true;
   }
 
-
   private isValidTimeRange(dateTime: string): boolean {
     const selectedDate = new Date(dateTime);
     const hours = selectedDate.getHours();
     return hours >= 9 && hours < 18;
   }
-
 }
