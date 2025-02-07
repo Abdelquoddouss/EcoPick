@@ -11,7 +11,7 @@ import {CommonModule} from "@angular/common";
 })
 export class RequestComponent implements OnInit {
   collectes: any[] = [];
-  userId: number | null = null;
+  userId: string | null = null; // Changer en string
 
   constructor(private collecteService: CollecteService) {}
 
@@ -20,13 +20,24 @@ export class RequestComponent implements OnInit {
 
     if (user) {
       const parsedUser = JSON.parse(user);
-      this.userId = parsedUser.id;
+      this.userId = String(parsedUser.id); // Convertir en string
     }
 
     if (this.userId) {
       this.collecteService.getCollectes().subscribe((data) => {
-        this.collectes = data.filter(collecte => collecte.userId === this.userId);
+        this.collectes = data
+          .filter(collecte => collecte.userId === this.userId)
+          .map(collecte => ({
+            ...collecte,
+            statut: collecte.statut || "non défini"
+          }));
       });
     }
+  }
+
+  supprimerCollecte(id: string) {
+    this.collecteService.deleteCollecte(id).subscribe(() => {
+      this.collectes = this.collectes.filter(collecte => collecte.id !== id);
+    });
   }
 }

@@ -17,4 +17,7 @@ export class CollecteService {
     return this.http.get<any[]>(this.apiUrl);
   }
 
+  deleteCollecte(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }
