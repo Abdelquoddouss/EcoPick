@@ -7,6 +7,7 @@ import {FooterComponent} from "./footer/footer.component";
 import {LayoutComponent} from "./layout/layout.component";
 import {HomeComponent} from "./home/home.component";
 import {CollectionComponent} from "./collection/collection.component";
+import {RequestComponent} from "./request/request.component";
 
 export const routes: Routes = [
 
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
       { path: 'addCollection', component: CollectionComponent },
+      { path: 'request', component: RequestComponent }
 
 
 

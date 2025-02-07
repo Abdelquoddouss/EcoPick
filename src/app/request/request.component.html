@@ -1,0 +1,24 @@
+<div *ngFor="let collecte of collectes">
+  <section class="mb-2 border bg-neutral-100 p-4 rounded-lg max-w-full">
+    <div class="mx-auto">
+      <div class="card md:flex max-w-lg">
+        <div class="w-20 h-20 mx-auto mb-6 md:mr-6 flex-shrink-0">
+          <img class="object-cover rounded-full" src="https://tailwindflex.com/public/images/user.png">
+        </div>
+        <div class="flex-grow text-center md:text-left">
+          <p class="font-bold">Collecte de {{ collecte.types }}</p>
+          <h3 class="text-xl heading">Adresse: {{ collecte.poids }}</h3>
+          <p class="mt-2 mb-3">Date: {{ collecte.date }}</p>
+          <p class="mt-2 mb-3">Notes: {{ collecte.adresse }}</p>
+          <p class="mt-2 mb-3">Notes: {{ collecte.notes }}</p>
+          <p class="mt-2 mb-3">Notes: {{ collecte.status }}</p>
+
+
+          <div>
+            <span class="bg-gray-200 border px-3 py-1.5 rounded-lg text-sm">{{ collecte.statut }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

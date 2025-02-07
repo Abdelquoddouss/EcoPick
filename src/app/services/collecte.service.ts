@@ -13,5 +13,8 @@ export class CollecteService {
     return this.http.post<any>(this.apiUrl, formData);
   }
 
+  getCollectes(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
+  }
 
 }
