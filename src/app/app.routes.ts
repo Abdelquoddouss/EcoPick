@@ -8,12 +8,14 @@ import {LayoutComponent} from "./layout/layout.component";
 import {HomeComponent} from "./home/home.component";
 import {CollectionComponent} from "./collection/collection.component";
 import {RequestComponent} from "./request/request.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 export const routes: Routes = [
 
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
 
+  { path: 'dashborad', component: DashboardComponent },
 
 
   {

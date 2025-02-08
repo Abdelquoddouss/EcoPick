@@ -3,11 +3,12 @@ import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { CollecteService } from "../services/collecte.service";
 import { AuthService } from "../services/auth.service";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-collection',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, RouterLink],
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.css']
 })
@@ -20,7 +21,7 @@ export class CollectionComponent implements OnInit {
   minDate: string = '';
   maxDate: string = '';
   imageFile: File | null = null;
-  imageBase64: string | null = null; // Ajout du champ base64
+  imageBase64: string | null = null;
 
   isAuthenticated: boolean = false;
   userId: number | null = null;
