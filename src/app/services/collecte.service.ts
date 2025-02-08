@@ -21,8 +21,10 @@ export class CollecteService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  getUserCollectes(userId: number): Observable<any[]> {
+  getUserCollectes(userId: number | null): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}?userId=${userId}`);
   }
-
+  updateCollecte(collecte: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${collecte.id}`, collecte);
+  }
 }
