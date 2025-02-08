@@ -24,10 +24,15 @@ export class CollecteService {
   getUserCollectes(userId: number | null): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}?userId=${userId}`);
   }
-  updateCollecte(collecte: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${collecte.id}`, collecte);
-  }
 
+  updateCollecteStatut(collecteId: string, newStatut: string, collecteurId?: string): Observable<any> {
+    const body = { statut: newStatut };
+    if (collecteurId) {
+      // @ts-ignore
+      body['collecteurId'] = collecteurId; // Ajouter collecteurId uniquement si défini
+    }
+    return this.http.patch(`${this.apiUrl}/${collecteId}`, body);
+  }
   getAllCollectes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }

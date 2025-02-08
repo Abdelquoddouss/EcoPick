@@ -26,6 +26,15 @@ export class DashboardComponent {
     this.getCollectes();
   }
 
+  getCurrentUser() {
+    const user = this.authService.getUser();
+    if (!user) {
+      console.error("Aucun utilisateur connecté.");
+      return { id: null }; // Retourner un objet par défaut pour éviter des erreurs
+    }
+    return user;
+  }
+
   getCollectes(): void {
     const user = this.authService.getUser();
     if (!user || !user.address) {
@@ -37,7 +46,11 @@ export class DashboardComponent {
     this.collecteService.getAllCollectes().subscribe(response => {
       console.log("Réponse API:", response);
 
-      this.collectes = response.filter(collecte => collecte.adresse.toLowerCase() === user.address.toLowerCase());
+      // Filtrer les collectes pour n'afficher que celles en attente ou prises par l'utilisateur connecté
+      this.collectes = response.filter(collecte =>
+        collecte.adresse.toLowerCase() === user.address.toLowerCase() &&
+        (collecte.statut === 'en attente' || collecte.collecteurId === user.id)
+      );
 
       if (this.collectes.length === 0) {
         console.log("Aucune collecte trouvée pour votre ville.");
@@ -47,7 +60,24 @@ export class DashboardComponent {
     });
   }
 
+  changerStatut(collecte: any, newStatut: string): void {
+    const user = this.authService.getUser();
+    const collecteurId = newStatut === 'occupée' ? user.id : collecte.collecteurId; // Garder le collecteurId existant
 
+    this.collecteService.updateCollecteStatut(collecte.id, newStatut, collecteurId).subscribe({
+      next: (response) => {
+        console.log('Statut mis à jour:', response);
+        collecte.statut = newStatut;
+        collecte.collecteurId = collecteurId; // Mettre à jour l'ID du collecteur localement
+        alert(`Le statut de la collecte a été mis à jour : ${newStatut}`);
+        this.getCollectes(); // Recharger les collectes après la mise à jour
+      },
+      error: (error) => {
+        console.error('Erreur lors de la mise à jour du statut:', error);
+        alert('Erreur lors de la mise à jour du statut.');
+      },
+    });
+  }
 
   logout() {
     localStorage.removeItem("user");

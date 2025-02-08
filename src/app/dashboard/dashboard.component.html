@@ -54,10 +54,9 @@
           <img [src]="collecte.image || 'https://tailwindflex.com/public/images/user.png'" class="w-16 h-16 object-cover rounded-full border border-green-300">
           <div>
             <h3 class="text-lg font-semibold text-green-700">Collecte de déchets</h3>
-            <p class="text-sm text-gray-500">{{ collecte.date }}</p>
+            <p class="text-sm text-gray-500">{{ collecte.date | date: 'short' }}</p>
           </div>
         </div>
-
 
         <div class="mt-4">
           <p class="text-sm text-gray-600"><strong>Adresse:</strong> {{ collecte.adresse }}</p>
@@ -73,18 +72,41 @@
             </ul>
           </div>
 
-        <div class="mt-4 flex items-center justify-between">
-          <span [ngClass]="{
-              'bg-yellow-100 text-yellow-700': collecte.statut === 'en attente',
-              'bg-green-100 text-green-700': collecte.statut === 'validée',
-              'bg-red-100 text-red-700': collecte.statut === 'refusée'
-            }" class="px-3 py-1 text-sm font-medium rounded-lg">
-            {{ collecte.statut || 'non défini' }}
-          </span>
+          <!-- Affichage du statut actuel -->
+          <div class="mt-4 flex items-center justify-between">
+            <span [ngClass]="{
+                'bg-yellow-100 text-yellow-700': collecte.statut === 'en attente',
+                'bg-blue-100 text-blue-700': collecte.statut === 'occupée',
+                'bg-purple-100 text-purple-700': collecte.statut === 'en cours',
+                'bg-green-100 text-green-700': collecte.statut === 'validée',
+                'bg-red-100 text-red-700': collecte.statut === 'rejetée'
+              }" class="px-3 py-1 text-sm font-medium rounded-lg">
+              {{ collecte.statut || 'non défini' }}
+            </span>
+          </div>
 
-
-        </div>
+          <!-- Boutons pour changer le statut -->
+          <div class="mt-4 space-x-2">
+            <button *ngIf="collecte.statut === 'en attente'" (click)="changerStatut(collecte, 'occupée')"
+                    class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+              Marquer comme Occupée
+            </button>
+            <button *ngIf="collecte.statut === 'occupée' && collecte.collecteurId === getCurrentUser().id" (click)="changerStatut(collecte, 'en cours')"
+                    class="px-3 py-1 bg-purple-500 text-white rounded-md hover:bg-purple-600">
+              Marquer comme En cours
+            </button>
+            <button *ngIf="collecte.statut === 'en cours' && collecte.collecteurId === getCurrentUser().id" (click)="changerStatut(collecte, 'validée')"
+                    class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600">
+              Marquer comme Validée
+            </button>
+            <button *ngIf="collecte.statut !== 'rejetée' && collecte.collecteurId === getCurrentUser().id" (click)="changerStatut(collecte, 'rejetée')"
+                    class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">
+              Rejeter
+            </button>
+          </div>
       </div>
     </div>
   </div>
 </div>
+</div>
+
