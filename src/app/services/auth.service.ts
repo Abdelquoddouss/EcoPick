@@ -34,4 +34,9 @@ export class AuthService {
     return user ? JSON.parse(user).id : null;
   }
 
+  getUser() {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null; // Convertir en objet si trouvé, sinon retourner null
+  }
+
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {CommonModule, NgClass} from "@angular/common";
-import {CollecteService} from "../services/collecte.service";
-import {AuthService} from "../services/auth.service";
-import {Route, Router} from "@angular/router";
+import { CommonModule, NgClass } from "@angular/common";
+import { CollecteService } from "../services/collecte.service";
+import { AuthService } from "../services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -11,50 +11,43 @@ import {Route, Router} from "@angular/router";
     NgClass, CommonModule
   ],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
   collectes: any[] = [];
 
-  constructor(private collecteService: CollecteService, private authService: AuthService, private router: Router) {}
+  constructor(
+    private collecteService: CollecteService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getCollectes();
   }
 
   getCollectes(): void {
-    const userId = this.authService.getUserId();  // Assurez-vous que l'utilisateur est connecté
-    this.collecteService.getUserCollectes(userId).subscribe(collectes => {
-      this.collectes = collectes;
+    const user = this.authService.getUser();
+    if (!user || !user.address) {
+      console.error("Utilisateur non valide ou adresse introuvable.");
+      alert("Votre adresse n'est pas définie. Veuillez vérifier votre profil.");
+      return;
+    }
+
+    this.collecteService.getAllCollectes().subscribe(response => {
+      console.log("Réponse API:", response);
+
+      this.collectes = response.filter(collecte => collecte.adresse.toLowerCase() === user.address.toLowerCase());
+
+      if (this.collectes.length === 0) {
+        console.log("Aucune collecte trouvée pour votre ville.");
+      }
     }, error => {
       console.error('Erreur lors de la récupération des collectes:', error);
-      alert('Impossible de récupérer les collectes.');
     });
   }
 
-  changerStatut(collecte: any): void {
-    // Changer le statut de la collecte en "complétée"
-    collecte.statut = 'complétée';
-    this.collecteService.updateCollecte(collecte).subscribe(response => {
-      console.log('Statut mis à jour:', response);
-      alert('La collecte a été marquée comme complétée.');
-    }, error => {
-      console.error('Erreur lors de la mise à jour du statut:', error);
-      alert('Erreur lors de la mise à jour du statut.');
-    });
-  }
 
-  annulerCollecte(collecte: any): void {
-    // Annuler la collecte
-    collecte.statut = 'annulée';
-    this.collecteService.updateCollecte(collecte).subscribe(response => {
-      console.log('Collecte annulée:', response);
-      alert('La collecte a été annulée.');
-    }, error => {
-      console.error('Erreur lors de l\'annulation de la collecte:', error);
-      alert('Erreur lors de l\'annulation de la collecte.');
-    });
-  }
 
   logout() {
     localStorage.removeItem("user");

@@ -27,4 +27,9 @@ export class CollecteService {
   updateCollecte(collecte: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${collecte.id}`, collecte);
   }
+
+  getAllCollectes(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}`);
+  }
+
 }
