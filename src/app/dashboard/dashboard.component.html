@@ -99,14 +99,15 @@
                     class="px-3 py-1 bg-green-500 text-white rounded-md hover:bg-green-600">
               Marquer comme Validée
             </button>
-            <button *ngIf="collecte.statut !== 'rejetée' && collecte.collecteurId === getCurrentUser().id" (click)="changerStatut(collecte, 'rejetée')"
+            <button *ngIf="collecte.statut !== 'rejetée' && collecte.statut !== 'validée' && collecte.collecteurId === getCurrentUser().id" (click)="changerStatut(collecte, 'rejetée')"
                     class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">
               Rejeter
             </button>
           </div>
-      </div>
     </div>
   </div>
 </div>
 </div>
+</div>
+
 

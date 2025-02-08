@@ -29,7 +29,7 @@ export class CollecteService {
     const body = { statut: newStatut };
     if (collecteurId) {
       // @ts-ignore
-      body['collecteurId'] = collecteurId; // Ajouter collecteurId uniquement si défini
+      body['collecteurId'] = collecteurId;
     }
     return this.http.patch(`${this.apiUrl}/${collecteId}`, body);
   }
