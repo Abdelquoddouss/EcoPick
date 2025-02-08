@@ -176,4 +176,10 @@ export class CollectionComponent implements OnInit {
     const hours = selectedDate.getHours();
     return hours >= 9 && hours < 18;
   }
+
+  getTypesDisponibles(index: number): string[] {
+    const typesChoisis = this.collecteTypes.map(c => c.type).filter(t => t);
+    return this.typesDechets.filter(type => !typesChoisis.includes(type) || this.collecteTypes[index].type === type);
+  }
+
 }
