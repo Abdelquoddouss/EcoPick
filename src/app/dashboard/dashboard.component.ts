@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {CommonModule, NgClass} from "@angular/common";
 import {CollecteService} from "../services/collecte.service";
 import {AuthService} from "../services/auth.service";
+import {Route, Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,7 @@ import {AuthService} from "../services/auth.service";
 export class DashboardComponent {
   collectes: any[] = [];
 
-  constructor(private collecteService: CollecteService, private authService: AuthService) {}
+  constructor(private collecteService: CollecteService, private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
     this.getCollectes();
@@ -53,5 +54,10 @@ export class DashboardComponent {
       console.error('Erreur lors de l\'annulation de la collecte:', error);
       alert('Erreur lors de l\'annulation de la collecte.');
     });
+  }
+
+  logout() {
+    localStorage.removeItem("user");
+    this.router.navigate(['/login']);
   }
 }

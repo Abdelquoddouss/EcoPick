@@ -37,7 +37,11 @@ export class LoginComponent {
             localStorage.setItem('user', JSON.stringify(user));
 
             setTimeout(() => {
-              this.router.navigate(['/home']);
+              if (user.role === 'collecteur') {
+                this.router.navigate(['/dashborad']);
+              } else {
+                this.router.navigate(['/home']);
+              }
             }, 1000);
 
           } else {
@@ -60,4 +64,6 @@ export class LoginComponent {
     this.alertType = type;
     setTimeout(() => this.alertMessage = null, 3000);
   }
+
+
 }
