@@ -9,6 +9,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class PointComponent implements OnInit {
   points: number = 0;
+  voucherAmount: number = 0;
   userId: number | null = null;
 
   constructor(private authService: AuthService) {}
@@ -21,6 +22,14 @@ export class PointComponent implements OnInit {
         error: (err) => {
           console.error('Erreur chargement points:', err);
           this.points = 0;
+        }
+      });
+
+      this.authService.getUserVoucher(this.userId).subscribe({
+        next: (voucher) => this.voucherAmount = voucher,
+        error: (err) => {
+          console.error('Erreur chargement voucher:', err);
+          this.voucherAmount = 0;
         }
       });
     }
@@ -50,7 +59,16 @@ export class PointComponent implements OnInit {
     this.authService.updateUserPoints(this.userId, newPointsTotal).subscribe({
       next: () => {
         this.points = newPointsTotal; // Mise à jour locale
-        alert(`Conversion réussie ! Bon d'achat de ${voucherAmount}Dh`);
+        this.authService.addVoucher(this.userId!, voucherAmount).subscribe({
+          next: () => {
+            this.voucherAmount = voucherAmount; // Mise à jour locale
+            alert(`Conversion réussie ! Bon d'achat de ${voucherAmount}Dh`);
+          },
+          error: (error) => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de la conversion');
+          }
+        });
       },
       error: (error) => {
         console.error('Erreur:', error);

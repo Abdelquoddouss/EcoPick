@@ -57,7 +57,7 @@
                class="text-red-500 text-xs">This field is required.</p>
           </div>
 
-          <button type="submit" [disabled]="registerForm.invalid" class="btn">
+          <button type="submit" [disabled]="registerForm.invalid"  [routerLink]="'/login'" class="btn">
             Sign Up
           </button>
         </form>

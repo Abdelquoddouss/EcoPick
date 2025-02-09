@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {map, Observable, switchMap} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -47,6 +47,21 @@ export class AuthService {
   getUserPoints(userId: number): Observable<number> {
     return this.http.get<any>(`${this.apiUrl}users/${userId}`).pipe(
       map(user => user.points || 0)
+    );
+  }
+
+  addVoucher(userId: number, voucherAmount: number): Observable<any> {
+    return this.getUserVoucher(userId).pipe(
+      map(existingVoucher => existingVoucher + voucherAmount), // Additionne l'ancien montant
+      switchMap(updatedVoucher =>
+        this.http.patch(`${this.apiUrl}users/${userId}`, { voucher: updatedVoucher })
+      )
+    );
+  }
+
+  getUserVoucher(userId: number): Observable<number> {
+    return this.http.get<any>(`${this.apiUrl}users/${userId}`).pipe(
+      map(user => user.voucher || 0) // Retourne 0 si pas de bon d'achat
     );
   }
 

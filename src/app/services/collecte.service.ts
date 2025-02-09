@@ -58,4 +58,6 @@ export class CollecteService {
     return Math.floor(totalPoints);
   }
 
+
+
 }

@@ -71,7 +71,8 @@
       "password": "Pa$$w0rd!",
       "birthDate": "1995-11-20",
       "role": "particulier",
-      "points": 50
+      "points": 50,
+      "voucher": 50
     }
   ],
   "collectes": [
