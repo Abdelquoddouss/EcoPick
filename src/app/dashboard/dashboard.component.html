@@ -72,7 +72,6 @@
             </ul>
           </div>
 
-          <!-- Affichage du statut actuel -->
           <div class="mt-4 flex items-center justify-between">
             <span [ngClass]="{
                 'bg-yellow-100 text-yellow-700': collecte.statut === 'en attente',
@@ -85,7 +84,6 @@
             </span>
           </div>
 
-          <!-- Boutons pour changer le statut -->
           <div class="mt-4 space-x-2">
             <button *ngIf="collecte.statut === 'en attente'" (click)="changerStatut(collecte, 'occupée')"
                     class="px-3 py-1 bg-blue-500 text-white rounded-md hover:bg-blue-600">
@@ -103,9 +101,11 @@
                     class="px-3 py-1 bg-red-500 text-white rounded-md hover:bg-red-600">
               Rejeter
             </button>
+
+
           </div>
-    </div>
   </div>
+</div>
 </div>
 </div>
 </div>

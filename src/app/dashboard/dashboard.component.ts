@@ -30,7 +30,7 @@ export class DashboardComponent {
     const user = this.authService.getUser();
     if (!user) {
       console.error("Aucun utilisateur connecté.");
-      return { id: null }; // Retourner un objet par défaut pour éviter des erreurs
+      return { id: null };
     }
     return user;
   }
@@ -46,7 +46,6 @@ export class DashboardComponent {
     this.collecteService.getAllCollectes().subscribe(response => {
       console.log("Réponse API:", response);
 
-      // Filtrer les collectes pour n'afficher que celles en attente ou prises par l'utilisateur connecté
       this.collectes = response.filter(collecte =>
         collecte.adresse.toLowerCase() === user.address.toLowerCase() &&
         (collecte.statut === 'en attente' || collecte.collecteurId === user.id)
@@ -78,6 +77,8 @@ export class DashboardComponent {
       },
     });
   }
+
+
 
   logout() {
     localStorage.removeItem("user");

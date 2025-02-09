@@ -39,4 +39,11 @@ export class AuthService {
     return user ? JSON.parse(user) : null; // Convertir en objet si trouvé, sinon retourner null
   }
 
+  updateUserPoints(userId: number, points: number): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/users/${userId}`, { points });
+  }
+  convertirPointsEnBonAchat(userId: number, points: number): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/users/${userId}`, { points });
+  }
+
 }
