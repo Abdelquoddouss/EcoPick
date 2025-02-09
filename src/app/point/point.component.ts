@@ -16,35 +16,46 @@ export class PointComponent implements OnInit {
   ngOnInit(): void {
     this.userId = this.authService.getUserId();
     if (this.userId) {
-      this.authService.getUserPoints(this.userId).subscribe(points => {
-        this.points = points;
+      this.authService.getUserPoints(this.userId).subscribe({
+        next: (points) => this.points = points,
+        error: (err) => {
+          console.error('Erreur chargement points:', err);
+          this.points = 0;
+        }
       });
     }
   }
 
-  convertPointsToVoucher(points: number): void {
-    if (this.userId) {
-      let voucherAmount = 0;
-      if (points >= 500) {
-        voucherAmount = 350;
-      } else if (points >= 200) {
-        voucherAmount = 120;
-      } else if (points >= 100) {
-        voucherAmount = 50;
-      } else {
-        alert('Pas assez de points pour un bon d\'achat.');
-        return;
-      }
+  convertPointsToVoucher(pointsToConvert: number): void {
+    if (!this.userId) return;
 
-      this.authService.updateUserPoints(this.userId, -points).subscribe({
-        next: () => {
-          alert(`Vous avez converti ${points} points en un bon d'achat de ${voucherAmount} Dh.`);
-          this.points -= points;
-        },
-        error: (error) => {
-          console.error('Erreur lors de la conversion des points:', error);
-        }
-      });
+    if (pointsToConvert > this.points) {
+      alert('Pas assez de points');
+      return;
     }
+    const newPointsTotal = this.points - pointsToConvert;
+
+    let voucherAmount = 0;
+    if (pointsToConvert >= 500) {
+      voucherAmount = 350;
+    } else if (pointsToConvert >= 200) {
+      voucherAmount = 120;
+    } else if (pointsToConvert >= 100) {
+      voucherAmount = 50;
+    } else {
+      alert('Montant de conversion invalide');
+      return;
+    }
+
+    this.authService.updateUserPoints(this.userId, newPointsTotal).subscribe({
+      next: () => {
+        this.points = newPointsTotal; // Mise à jour locale
+        alert(`Conversion réussie ! Bon d'achat de ${voucherAmount}Dh`);
+      },
+      error: (error) => {
+        console.error('Erreur:', error);
+        alert('Erreur lors de la conversion');
+      }
+    });
   }
 }

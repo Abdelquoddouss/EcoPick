@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +38,16 @@ export class AuthService {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null; // Convertir en objet si trouvé, sinon retourner null
   }
-  updateUserPoints(userId: number, points: number): Observable<any> {
-    return this.http.patch(`${this.apiUrl}users/${userId}`, { points });
+  updateUserPoints(userId: number, newPoints: number): Observable<any> {
+    return this.http.patch(`${this.apiUrl}users/${userId}`, {
+      points: newPoints
+    });
   }
 
   getUserPoints(userId: number): Observable<number> {
-    return this.http.get<number>(`${this.apiUrl}users/${userId}/points`);
+    return this.http.get<any>(`${this.apiUrl}users/${userId}`).pipe(
+      map(user => user.points || 0)
+    );
   }
 
 
