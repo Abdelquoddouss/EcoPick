@@ -38,12 +38,13 @@ export class AuthService {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null; // Convertir en objet si trouvé, sinon retourner null
   }
-
   updateUserPoints(userId: number, points: number): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/users/${userId}`, { points });
+    return this.http.patch(`${this.apiUrl}users/${userId}`, { points });
   }
-  convertirPointsEnBonAchat(userId: number, points: number): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/users/${userId}`, { points });
+
+  getUserPoints(userId: number): Observable<number> {
+    return this.http.get<number>(`${this.apiUrl}users/${userId}/points`);
   }
+
 
 }

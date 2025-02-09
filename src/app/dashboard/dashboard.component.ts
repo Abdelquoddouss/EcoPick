@@ -61,15 +61,27 @@ export class DashboardComponent {
 
   changerStatut(collecte: any, newStatut: string): void {
     const user = this.authService.getUser();
-    const collecteurId = newStatut === 'occupée' ? user.id : collecte.collecteurId; // Garder le collecteurId existant
+    const collecteurId = newStatut === 'occupée' ? user.id : collecte.collecteurId;
 
     this.collecteService.updateCollecteStatut(collecte.id, newStatut, collecteurId).subscribe({
       next: (response) => {
         console.log('Statut mis à jour:', response);
         collecte.statut = newStatut;
-        collecte.collecteurId = collecteurId; // Mettre à jour l'ID du collecteur localement
-        alert(`Le statut de la collecte a été mis à jour : ${newStatut}`);
-        this.getCollectes(); // Recharger les collectes après la mise à jour
+        collecte.collecteurId = collecteurId;
+
+        if (newStatut === 'validée') {
+          const points = this.collecteService.calculatePoints(collecte.types);
+          this.authService.updateUserPoints(collecte.userId, points).subscribe({
+            next: () => {
+              alert(`Collecte validée. ${points} points ont été ajoutés à l'utilisateur.`);
+            },
+            error: (error) => {
+              console.error('Erreur lors de la mise à jour des points:', error);
+            }
+          });
+        }
+
+        this.getCollectes();
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour du statut:', error);

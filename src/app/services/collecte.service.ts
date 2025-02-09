@@ -37,4 +37,25 @@ export class CollecteService {
     return this.http.get<any[]>(`${this.apiUrl}`);
   }
 
+  calculatePoints(types: { type: string; poids: number }[]): number {
+    let totalPoints = 0;
+    types.forEach(type => {
+      switch (type.type) {
+        case 'plastique':
+          totalPoints += 2 * (type.poids / 1000);
+          break;
+        case 'verre':
+          totalPoints += 1 * (type.poids / 1000);
+          break;
+        case 'papier':
+          totalPoints += 1 * (type.poids / 1000);
+          break;
+        case 'métal':
+          totalPoints += 5 * (type.poids / 1000);
+          break;
+      }
+    });
+    return Math.floor(totalPoints);
+  }
+
 }

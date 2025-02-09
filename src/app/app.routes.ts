@@ -9,6 +9,7 @@ import {HomeComponent} from "./home/home.component";
 import {CollectionComponent} from "./collection/collection.component";
 import {RequestComponent} from "./request/request.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {PointComponent} from "./point/point.component";
 
 export const routes: Routes = [
 
@@ -28,8 +29,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
 
       { path: 'addCollection', component: CollectionComponent },
-      { path: 'request', component: RequestComponent }
+      { path: 'request', component: RequestComponent },
 
+      { path: 'point', component: PointComponent }
 
 
     ]
