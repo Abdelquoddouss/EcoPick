@@ -49,7 +49,6 @@ export class DashboardComponent {
     }
 
     this.collecteService.getAllCollectes().subscribe(response => {
-      console.log("Réponse API:", response);
 
       this.collectes = response.filter(collecte =>
         collecte.adresse.toLowerCase() === user.address.toLowerCase() &&
