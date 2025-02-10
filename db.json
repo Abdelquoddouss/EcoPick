@@ -286,21 +286,6 @@
       "collecteurId": "8c60"
     },
     {
-      "id": "24f8",
-      "userId": "22db",
-      "types": [
-        {
-          "type": "papier",
-          "poids": 5277
-        }
-      ],
-      "adresse": "Agadir",
-      "date": "2009-04-04T11:21",
-      "notes": "Autem eum deserunt r",
-      "image": null,
-      "statut": "en attente"
-    },
-    {
       "id": "ee95",
       "userId": "22db",
       "types": [

@@ -44,7 +44,7 @@ export class CollectionComponent implements OnInit {
   }
 
   checkAuthStatus() {
-    this.isAuthenticated = this.authService.isLogged();
+    this.isAuthenticated = this.authService.isAuthenticated();
     this.userId = this.authService.getUserId();
 
     if (!this.isAuthenticated) {
