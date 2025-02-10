@@ -12,8 +12,9 @@
           Get your free account now.
         </h1>
 
-        <form [formGroup]="registerForm"  (ngSubmit)="onsubmit()"
-              class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+        <form [formGroup]="registerForm" (ngSubmit)="onsubmit()"
+
+        class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
 
           <div>
             <label class="block text-sm text-gray-600 dark:text-gray-200">Full Name</label>
@@ -56,10 +57,18 @@
             <p *ngIf="registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched"
                class="text-red-500 text-xs">This field is required.</p>
           </div>
+          <div class="col-span-2">
+            <label class="block text-sm text-gray-600 dark:text-gray-200">Profile Picture (Optional)</label>
+            <input type="file" (change)="onFileSelected($event)" accept="image/*" class="input">
+          </div>
 
-          <button type="submit" [disabled]="registerForm.invalid"  [routerLink]="'/login'" class="btn">
+
+
+
+          <button type="submit" [disabled]="registerForm.invalid" class="btn">
             Sign Up
           </button>
+
         </form>
       </div>
     </div>

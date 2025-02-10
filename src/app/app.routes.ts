@@ -13,7 +13,7 @@ import { AuthGuard } from "./guards/auth-guard.guard";
 import { RoleGuard } from "./guards/role-guard.guard";
 
 export const routes: Routes = [
-  { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuard] },
+  { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuard] },
 
   { path: 'dashboard', component: DashboardComponent, canActivate: [RoleGuard], data: { expectedRole: 'collecteur' } },

@@ -73,6 +73,17 @@
       "role": "particulier",
       "points": 50,
       "voucher": 50
+    },
+    {
+      "id": "493b",
+      "fullName": "Delectus nostrum qu",
+      "address": "Repellendus Corpori",
+      "phone": "7597865706",
+      "email": "nyfimahus@mailinator.com",
+      "password": "Pa$$w0rd!",
+      "birthDate": "1995-03-27",
+      "role": "particulier",
+      "profilePicture": null
     }
   ],
   "collectes": [
