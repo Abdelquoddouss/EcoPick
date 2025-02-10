@@ -4,6 +4,7 @@ import { CommonModule } from "@angular/common";
 import { CollecteService } from "../services/collecte.service";
 import { AuthService } from "../services/auth.service";
 import {RouterLink} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-collection',
@@ -48,7 +49,12 @@ export class CollectionComponent implements OnInit {
     this.userId = this.authService.getUserId();
 
     if (!this.isAuthenticated) {
-      alert("Vous devez être connecté pour enregistrer une collecte.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Accès refusé',
+        text: 'Vous devez être connecté pour enregistrer une collecte.',
+        confirmButtonColor: '#16a34a'
+      });
     }
   }
 
@@ -56,7 +62,12 @@ export class CollectionComponent implements OnInit {
     if (this.collecteTypes.length < 4) {
       this.collecteTypes.push({ type: '', poids: 0 });
     } else {
-      alert('Vous ne pouvez ajouter que 4 types de déchets pour une collecte.');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Limite atteinte',
+        text: 'Vous ne pouvez ajouter que 4 types de déchets pour une collecte.',
+        confirmButtonColor: '#16a34a'
+      });
     }
   }
 
@@ -97,7 +108,12 @@ export class CollectionComponent implements OnInit {
       const demandesActives = collectes.filter((c: { statut: string; }) => c.statut === "en attente").length;
 
       if (demandesActives >= 3) {
-        alert("Vous ne pouvez pas avoir plus de 3 demandes simultanées en attente");
+        Swal.fire({
+          icon: 'warning',
+          title: 'Trop de demandes',
+          text: 'Vous ne pouvez pas avoir plus de 3 demandes simultanées en attente',
+          confirmButtonColor: '#16a34a'
+        });
         return;
       }
 
@@ -114,8 +130,12 @@ export class CollectionComponent implements OnInit {
 
         this.collecteService.enregistrerCollecte(formData).subscribe(
           response => {
-            console.log('Collecte enregistrée avec succès:', response);
-            alert("Votre demande de collecte a été enregistrée avec succès !");
+            Swal.fire({
+              icon: 'success',
+              title: 'Succès !',
+              text: 'Votre demande de collecte a été enregistrée avec succès !',
+              confirmButtonColor: '#16a34a'
+            });
           },
           error => {
             console.error("Erreur lors de l'enregistrement:", error);
@@ -124,8 +144,12 @@ export class CollectionComponent implements OnInit {
         );
       }
     }, error => {
-      console.error("Erreur lors de la récupération des collectes:", error);
-      alert("Impossible de vérifier vos collectes en attente.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Une erreur est survenue lors de l\'enregistrement.',
+        confirmButtonColor: '#16a34a'
+      });
     });
   }
 
@@ -136,20 +160,35 @@ export class CollectionComponent implements OnInit {
       const collecte = this.collecteTypes[i];
 
       if (!collecte.type) {
-        alert(`Veuillez sélectionner un type pour le déchet numéro ${i + 1}.`);
+        Swal.fire({
+          icon: 'error',
+          title: 'Champ manquant',
+          text: `Veuillez sélectionner un type pour le déchet numéro ${i + 1}.`,
+          confirmButtonColor: '#16a34a'
+        });
+        return false;
+      }
+      if (collecte.poids < 1000) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Champ manquant',
+          text: `Le poids du déchet numéro ${i + 1} doit être d'au moins 1000g.`,
+          confirmButtonColor: '#16a34a'
+        });
         return false;
       }
 
-      if (collecte.poids < 1000) {
-        alert(`Le poids du déchet numéro ${i + 1} doit être d'au moins 1000g.`);
-        return false;
-      }
 
       totalPoids += collecte.poids;
     }
 
     if (totalPoids > 10000) {
-      alert("Le total des collectes ne doit pas dépasser 10 kg (10000g).");
+      Swal.fire({
+        icon: 'error',
+        title: 'Champ manquant',
+        text: `Le total des collectes ne doit pas dépasser 10 kg (10000g).`,
+        confirmButtonColor: '#16a34a'
+      });
       return false;
     }
 
@@ -164,7 +203,12 @@ export class CollectionComponent implements OnInit {
     }
 
     if (!this.isValidTimeRange(this.dateCollecte)) {
-      alert("L'heure de collecte doit être comprise entre 09h00 et 18h00.");
+      Swal.fire({
+        icon: 'error',
+        title: 'Champ manquant',
+        text: `L'heure de collecte doit être comprise entre 09h00 et 18h00.`,
+        confirmButtonColor: '#16a34a'
+      });
       return false;
     }
 

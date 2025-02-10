@@ -20,7 +20,7 @@ export class RequestComponent implements OnInit {
 
     if (user) {
       const parsedUser = JSON.parse(user);
-      this.userId = String(parsedUser.id); // Convertir en string
+      this.userId = String(parsedUser.id);
     }
 
     if (this.userId) {

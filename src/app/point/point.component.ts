@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-point',
@@ -39,9 +40,15 @@ export class PointComponent implements OnInit {
     if (!this.userId) return;
 
     if (pointsToConvert > this.points) {
-      alert('Pas assez de points');
+      Swal.fire({
+        icon: 'warning',
+        title: 'Points insuffisants',
+        text: 'Pas assez de points',
+        confirmButtonColor: '#16a34a'
+      });
       return;
     }
+
     const newPointsTotal = this.points - pointsToConvert;
 
     let voucherAmount = 0;
@@ -52,7 +59,12 @@ export class PointComponent implements OnInit {
     } else if (pointsToConvert >= 100) {
       voucherAmount = 50;
     } else {
-      alert('Montant de conversion invalide');
+      Swal.fire({
+        icon: 'error',
+        title: 'Erreur',
+        text: 'Montant de conversion invalide',
+        confirmButtonColor: '#16a34a'
+      });
       return;
     }
 
@@ -62,8 +74,12 @@ export class PointComponent implements OnInit {
         this.authService.addVoucher(this.userId!, voucherAmount).subscribe({
           next: () => {
             this.voucherAmount = voucherAmount; // Mise à jour locale
-            alert(`Conversion réussie ! Bon d'achat de ${voucherAmount}Dh`);
-          },
+            Swal.fire({
+              icon: 'success',
+              title: 'Conversion réussie',
+              text: `Bon d'achat de ${voucherAmount}Dh généré !`,
+              confirmButtonColor: '#16a34a'
+            });          },
           error: (error) => {
             console.error('Erreur:', error);
             alert('Erreur lors de la conversion');

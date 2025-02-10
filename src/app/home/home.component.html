@@ -1,21 +1,21 @@
-<div class="h-screen flex items-center bg-cover bg-center bg-fixed relative " style="background-image: url('./assets/img/nature-3294632_1280.jpg');">
+<div class="h-screen flex items-center bg-cover bg-center bg-fixed relative" style="background-image: url('./assets/img/nature-3294632_1280.jpg');">
   <div class="absolute inset-0 bg-black/30"></div> <!-- Overlay sombre -->
   <div class="relative px-4 mx-auto mt-16 mb-16 max-w-7xl sm:mt-24">
     <div class="text-center">
       <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl md:text-6xl font-title">
-        <span class="block">Leading US-Based cycle maker</span>
-        <span class="block pt-2">New Product Launch</span>
+        <span class="block">Bienvenue sur Ecopick</span>
+        <span class="block pt-2">Votre partenaire de recyclage</span>
       </h1>
       <p class="max-w-md mx-auto mt-3 text-base text-gray-300 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-        Innovative technology to revolutionize industry standards,
-        Available for pre-order now and shipping to customers in the coming months.
+        Ecopick est une plateforme innovante qui facilite le recyclage des déchets. Que vous soyez un particulier ou un collecteur,
+        rejoignez-nous pour contribuer à un environnement plus propre et plus durable.
       </p>
       <div class="max-w-md mx-auto mt-5 sm:flex sm:justify-center md:mt-8">
         <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
           <!-- Bouton dynamique -->
           <button (click)="navigateToAction()"
                   class="block shadow-lg w-full px-8 py-3 text-base font-medium text-white bg-green-600 hover:bg-green-700 rounded-md md:py-4 md:text-lg md:px-10">
-            {{ isAuthenticated ? 'Faire une collection' : 'Se connecter' }}
+            {{ isAuthenticated ? (userRole === 'particulier' ? 'Faire une collection' : 'Accéder au dashboard') : 'Se connecter' }}
           </button>
         </div>
       </div>
@@ -27,24 +27,24 @@
   <div class="w-full sm:w-7/12 px-6 lg:px-12">
     <div class="max-w-2xl mx-auto">
       <h1 class="text-4xl lg:text-6xl font-extrabold leading-tight text-gray-900">
-        Find your <span class="text-green-700">greeny</span> stuff for your room
+        Trouvez votre <span class="text-green-700">solution écologique</span> avec Ecopick
       </h1>
       <div class="w-24 h-2 bg-green-700 mt-4 mb-6"></div>
       <p class="text-lg text-gray-700 leading-relaxed">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae maiores neque eaque ea odit placeat,
-        tenetur illum distinctio nulla voluptatum a corrupti beatae tempora aperiam quia id aliquam possimus aut.
+        Ecopick vous permet de gérer vos déchets de manière responsable. Que vous soyez un particulier souhaitant recycler
+        ou un collecteur cherchant à optimiser vos opérations, notre plateforme est conçue pour vous.
       </p>
       <button (click)="navigateToAction()"
               class="mt-6 bg-green-600 hover:bg-green-700 transition-all duration-300 text-white text-lg font-medium px-6 py-3 rounded-lg shadow-lg">
-        {{ isAuthenticated ? 'Faire une collection' : 'Rejoindre nous' }}
+        {{ isAuthenticated ? (userRole === 'particulier' ? 'Faire une collection' : 'Accéder au dashboard') : 'Rejoindre nous' }}
       </button>
     </div>
   </div>
 
-<!-- Section Image -->
+  <!-- Section Image -->
   <div class="w-full sm:w-5/12 mt-8 sm:mt-0 px-4">
     <img src="assets/img/happy-man-holding-cardboard-box-with-recycle-items-front-women-gesturing-thumbs-up.jpg"
-         alt="Leafs"
+         alt="Ecopick en action"
          class="w-full h-64 sm:h-full object-cover rounded-lg shadow-lg">
   </div>
 </div>
@@ -53,9 +53,9 @@
 <section class="bg-white dark:bg-gray-900 py-16">
   <div class="container px-6 py-10 mx-auto">
     <div class="text-center">
-      <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">From the Blog</h1>
+      <h1 class="text-2xl font-semibold text-gray-800 capitalize lg:text-3xl dark:text-white">Découvrez Ecopick</h1>
       <p class="max-w-lg mx-auto mt-4 text-gray-500">
-        Explore the latest updates, tips, and stories from our blog.
+        Explorez les dernières actualités, conseils et histoires sur notre blog.
       </p>
     </div>
 
@@ -68,10 +68,10 @@
         <div class="absolute inset-0 bg-gradient-to-t to-transparent opacity-60 group-hover:opacity-0 transition-all duration-300"></div>
         <div class="relative z-20 p-6 mx-auto mt-[-180px] bg-white rounded-md shadow-lg ">
           <a href="#" class="font-semibold  hover:text-green-600 dark:text-white md:text-xl">
-            All the features you want to know
+            Tout ce que vous devez savoir sur Ecopick
           </a>
           <p class="mt-3 text-sm text-gray-500 dark:text-gray-300">
-            Discover all the latest features we have added to make your experience better.
+            Découvrez comment Ecopick révolutionne la gestion des déchets et comment vous pouvez en bénéficier.
           </p>
         </div>
       </div>
@@ -84,12 +84,11 @@
         <div class="absolute inset-0 bg-gradient-to-t to-transparent opacity-60 group-hover:opacity-0 transition-all duration-300"></div>
         <div class="relative z-20 p-6 mx-auto mt-[-180px] bg-white rounded-md shadow-lg dark:bg-gray-900">
           <a href="#" class="font-semibold hover:text-green-600 dark:text-white md:text-xl">
-            How to use sticky notes for problem-solving
+            Comment Ecopick facilite le recyclage
           </a>
           <p class="mt-3 text-sm text-gray-500 dark:text-gray-300">
-            Learn how sticky notes can help in organizing you
+            Apprenez comment Ecopick simplifie le processus de recyclage pour les particuliers et les collecteurs.
           </p>
-
         </div>
       </div>
     </div>

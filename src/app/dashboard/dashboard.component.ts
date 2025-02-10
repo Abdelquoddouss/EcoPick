@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { CommonModule, NgClass } from "@angular/common";
 import { CollecteService } from "../services/collecte.service";
 import { AuthService } from "../services/auth.service";
-import { Router } from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    NgClass, CommonModule
+    NgClass, CommonModule, RouterLink
   ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
@@ -38,8 +39,12 @@ export class DashboardComponent {
   getCollectes(): void {
     const user = this.authService.getUser();
     if (!user || !user.address) {
-      console.error("Utilisateur non valide ou adresse introuvable.");
-      alert("Votre adresse n'est pas définie. Veuillez vérifier votre profil.");
+      Swal.fire({
+        icon: 'warning',
+        title: 'Adresse manquante',
+        text: 'Votre adresse n\'est pas définie. Veuillez vérifier votre profil.',
+        confirmButtonColor: '#16a34a'
+      });
       return;
     }
 
@@ -73,8 +78,12 @@ export class DashboardComponent {
           const points = this.collecteService.calculatePoints(collecte.types);
           this.authService.updateUserPoints(collecte.userId, points).subscribe({
             next: () => {
-              alert(`Collecte validée. ${points} points ont été ajoutés à l'utilisateur.`);
-            },
+              Swal.fire({
+                icon: 'success',
+                title: 'Points attribués',
+                text: `${points} points ont été ajoutés à l'utilisateur.`,
+                confirmButtonColor: '#16a34a'
+              });            },
             error: (error) => {
               console.error('Erreur lors de la mise à jour des points:', error);
             }
@@ -85,8 +94,12 @@ export class DashboardComponent {
       },
       error: (error) => {
         console.error('Erreur lors de la mise à jour du statut:', error);
-        alert('Erreur lors de la mise à jour du statut.');
-      },
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Erreur lors de la mise à jour du statut.',
+          confirmButtonColor: '#16a34a'
+        });      },
     });
   }
 
